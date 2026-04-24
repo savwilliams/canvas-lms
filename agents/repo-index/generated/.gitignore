@@ -1,0 +1,4 @@
+# Ephemeral index outputs; regenerate with:
+#   python3 agents/scripts/build_index.py --repo <REPO_ROOT>
+*
+!.gitignore
