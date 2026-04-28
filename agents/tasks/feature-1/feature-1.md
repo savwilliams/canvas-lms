@@ -1,0 +1,7 @@
+## AI Rubric Feedback (MVP)
+
+This feature adds a small, student-facing **“Get AI Feedback”** action on the assignment submission page so students can request pre-submission guidance against the assignment rubric. The goal is to provide fast, formative feedback before final submission: a short summary of strengths, likely gaps by rubric criterion, and a few concrete improvement suggestions. For initial scope control, this should be treated as advisory only (not grading), available only when a rubric exists, and limited to a simple response format that students can quickly act on.
+
+The main reason for this feature is to help students self-correct earlier, reduce uncertainty about rubric expectations, and improve submission quality without changing instructor grading authority. To keep the MVP small and safe, the first version should support only one submission type (text entry), run behind a feature flag, enforce basic usage limits, and avoid broad platform changes such as file parsing, analytics dashboards, or auto-scoring workflows. Success for this phase is straightforward: students can request rubric-aligned feedback in one click and use it to revise before submitting.
+
+Generated with Ai
