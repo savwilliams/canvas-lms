@@ -17,9 +17,6 @@
     "add_alt_text_for_the_image_48cd88aa": {
         "message": "Adjon hozzá alternatív szöveget a képhez"
     },
-    "add_another_f4e50d57": {
-        "message": "Másik hozzáadása"
-    },
     "add_cc_subtitles_55f0394e": {
         "message": "Felirat hozzáadása"
     },
@@ -446,9 +443,6 @@
     "custom_6979cd81": {
         "message": "Egyéni"
     },
-    "custom_width_and_height_pixels_946eea7c": {
-        "message": "Egyéni szélesség és magasság (képpont)"
-    },
     "cyan_c1d5f68a": {
         "message": "Cián"
     },
@@ -523,9 +517,6 @@
     },
     "dimension_type_f5fa9170": {
         "message": "Méret típusa"
-    },
-    "dimensions_45ddb7b7": {
-        "message": "Méretek"
     },
     "directionality_26ae9e08": {
         "message": "Irányítottság"

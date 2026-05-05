@@ -402,6 +402,7 @@ ai_rubrics:
   root_opt_in: true
   display_name: IgniteAI Generator for Rubrics
   description: Give rubric creators the option to generate rubric criteria automatically based on an assignment description via a large language model (LLM).
+  visible_on: tier_2_visible_on_hook
 use_body_word_count:
   state: allowed_on # this is intentional. we want to enable this upon deploy so we start populating word count.
   applies_to: SiteAdmin
@@ -531,6 +532,18 @@ optimized_needs_grading_count:
     Uses bulk SQL (GROUP BY) instead of per-assignment Redis calls for
     needs_grading_count. Eliminates N+1 Redis round trips during course
     list serialization.
+  environments:
+    ci:
+      state: allowed_on
+    development:
+      state: allowed_on
+grading_rubrics_pagination:
+  state: hidden
+  applies_to: RootAccount
+  display_name: Grading Rubrics Pagination
+  description: |
+    Enables pagination for grading rubrics api endpoint when context code is provided to improve 
+    performance when dealing with a large number of rubrics.
   environments:
     ci:
       state: allowed_on

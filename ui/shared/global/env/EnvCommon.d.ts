@@ -149,6 +149,7 @@ export interface EnvCommon {
   ONETRUST_CONSENT_DOMAIN_ID?: string
   PRE_COOKIE_CONSENT?: string
   PENDO_APP_ID: string
+  PENDO_APP_ENV: string
   ROOT_OUTCOME_GROUP: GroupOutcome
   k12: false
   help_link_name: string
@@ -348,8 +349,10 @@ export type RootAccountFeatureId =
   | 'course_pace_weighted_assignments'
   | 'course_paces_skip_selected_days'
   | 'create_course_subaccount_picker'
+  | 'default_discussion_options'
   | 'disable_iframe_sandbox_file_show'
   | 'extended_submission_state'
+  | 'grading_rubrics_pagination'
   | 'institutional_tags'
   | 'instui_nav'
   | 'login_registration_ui_identity'
@@ -380,7 +383,9 @@ export type RootAccountFeatureId =
   | 'scheduled_page_publication'
   | 'send_usage_metrics'
   | 'substitution_variable_display'
+  | 'send_usage_metrics_after_consent'
   | 'top_navigation_placement'
+  | 'course_navigation_and_feature_options_permissions'
 
 /**
  * From ApplicationController#JS_ENV_ROOT_ACCOUNT_SERVICES

@@ -17,8 +17,8 @@
   "add_alt_text_for_the_image_48cd88aa": {
     "message": "Add alt text for the image"
   },
-  "add_another_f4e50d57": {
-    "message": "Add another"
+  "add_another_closed_caption_or_subtitle_d3e06618": {
+    "message": "Add another closed caption or subtitle"
   },
   "add_cc_subtitles_55f0394e": {
     "message": "Add CC/Subtitles"
@@ -527,8 +527,8 @@
   "custom_6979cd81": {
     "message": "Custom"
   },
-  "custom_width_and_height_pixels_946eea7c": {
-    "message": "Custom width and height (Pixels)"
+  "custom_dimensions_96596dba": {
+    "message": "Custom Dimensions"
   },
   "cyan_c1d5f68a": {
     "message": "Cyan"
@@ -581,6 +581,9 @@
   "delete_failed_6529e336": {
     "message": "Delete Failed"
   },
+  "deleting_captionname_f175b906": {
+    "message": "Deleting { captionName }"
+  },
   "delimiters_4db4840d": {
     "message": "Delimiters"
   },
@@ -613,9 +616,6 @@
   },
   "dimension_type_f5fa9170": {
     "message": "Dimension Type"
-  },
-  "dimensions_45ddb7b7": {
-    "message": "Dimensions"
   },
   "directionality_26ae9e08": {
     "message": "Directionality"
@@ -2073,6 +2073,9 @@
   "request_d1129f7d": {
     "message": "Request"
   },
+  "requesting_lang_caption_1e04346a": {
+    "message": "Requesting { lang } caption"
+  },
   "reset_95a81614": {
     "message": "Reset"
   },
@@ -2690,6 +2693,9 @@
   },
   "uploading_19e8a4e7": {
     "message": "Uploading"
+  },
+  "uploading_lang_caption_925b9d32": {
+    "message": "Uploading { lang } caption"
   },
   "uppercase_alphabetic_ordered_list_3f5aa6b2": {
     "message": "uppercase alphabetic ordered list"

@@ -17,9 +17,6 @@
     "add_alt_text_for_the_image_48cd88aa": {
         "message": "Görsel için alternatif metin ekleyin"
     },
-    "add_another_f4e50d57": {
-        "message": "Başka bir tane ekle"
-    },
     "add_cc_subtitles_55f0394e": {
         "message": "Alt yazı ekle"
     },
@@ -515,9 +512,6 @@
     "custom_6979cd81": {
         "message": "Özelleştir"
     },
-    "custom_width_and_height_pixels_946eea7c": {
-        "message": "Özel genişlik ve yükseklik (piksel)"
-    },
     "cyan_c1d5f68a": {
         "message": "Cam göbeği"
     },
@@ -601,9 +595,6 @@
     },
     "dimension_type_f5fa9170": {
         "message": "Boyut Türü"
-    },
-    "dimensions_45ddb7b7": {
-        "message": "Tanımlamalar"
     },
     "directionality_26ae9e08": {
         "message": "Yazım yönü"

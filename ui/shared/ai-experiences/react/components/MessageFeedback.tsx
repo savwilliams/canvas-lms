@@ -27,11 +27,17 @@ import {Alert} from '@instructure/ui-alerts'
 import {IconLikeLine, IconLikeSolid} from '@instructure/ui-icons'
 import doFetchApi from '@canvas/do-fetch-api-effect'
 import type {FeedbackItem} from '../../types'
+import {navyButtonTheme, navyPillButtonTheme, lightBlueButtonTheme, RADIUS_PILL} from '../brand'
 
 const I18n = createI18nScope('ai_experiences')
 
+const activeVoteButtonTheme = navyPillButtonTheme
+const inactiveVoteButtonTheme = {borderRadius: RADIUS_PILL}
+const submitButtonTheme = navyButtonTheme
+
 interface MessageFeedbackProps {
   messageId: string
+  messageContainerId: string
   initialFeedback: FeedbackItem[]
   courseId: string | number
   aiExperienceId: string
@@ -46,6 +52,7 @@ interface FeedbackResponse {
 
 const MessageFeedback = ({
   messageId,
+  messageContainerId,
   initialFeedback,
   courseId,
   aiExperienceId,
@@ -70,7 +77,6 @@ const MessageFeedback = ({
     setIsSubmitting(true)
     setError(null)
     try {
-      // Remove existing feedback before posting new vote (switching like↔dislike)
       if (feedback) {
         await doFetchApi({
           path: `${feedbackBasePath}/${feedback.id}`,
@@ -120,6 +126,7 @@ const MessageFeedback = ({
       } else {
         await postFeedback('liked')
       }
+      setUiState('idle')
     } catch {
       // error state already set in postFeedback/removeFeedback
     }
@@ -171,9 +178,11 @@ const MessageFeedback = ({
           withBorder={true}
           color={isLiked ? 'primary' : 'secondary'}
           screenReaderLabel={I18n.t('Like this response')}
+          aria-describedby={messageContainerId}
           onClick={handleLike}
           interaction={buttonInteraction}
           data-testid="message-feedback-like"
+          themeOverride={isLiked ? activeVoteButtonTheme : inactiveVoteButtonTheme}
         >
           {isLiked ? <IconLikeSolid /> : <IconLikeLine />}
         </IconButton>
@@ -184,9 +193,11 @@ const MessageFeedback = ({
             withBorder={true}
             color={isDisliked ? 'primary' : 'secondary'}
             screenReaderLabel={I18n.t('Dislike this response')}
+            aria-describedby={messageContainerId}
             onClick={handleDislike}
             interaction={buttonInteraction}
             data-testid="message-feedback-dislike"
+            themeOverride={isDisliked ? activeVoteButtonTheme : inactiveVoteButtonTheme}
           >
             {isDisliked ? <IconLikeSolid /> : <IconLikeLine />}
           </IconButton>
@@ -221,36 +232,45 @@ const MessageFeedback = ({
             label={I18n.t('What was the issue?')}
             value={feedbackText}
             onChange={e => setFeedbackText(e.target.value)}
-            placeholder={I18n.t('For example: Inappropriate, irrelevant, etc.')}
             height="80px"
             disabled={isSubmitting}
             data-testid="message-feedback-text"
           />
-          <View as="div" margin="x-small 0 0 0">
-            <Text size="small">
-              {I18n.t(
-                'By submitting this report, you agree to share your current conversation to Instructure for improvements.',
-              )}
+          <View as="div" margin="x-small 0 small 0">
+            <Text size="small" color="secondary">
+              {I18n.t('For example: Inappropriate, irrelevant, etc.')}
             </Text>
           </View>
-          <Flex justifyItems="end" gap="small" margin="small 0 0 0">
-            <Button
-              size="small"
-              interaction={buttonInteraction}
-              onClick={handleSkip}
-              data-testid="message-feedback-skip"
-            >
-              {I18n.t('Skip')}
-            </Button>
-            <Button
-              size="small"
-              color="primary"
-              interaction={submitInteraction}
-              onClick={handleSubmit}
-              data-testid="message-feedback-submit"
-            >
-              {I18n.t('Submit')}
-            </Button>
+          <Flex alignItems="center" justifyItems="space-between">
+            <Flex.Item shouldGrow shouldShrink>
+              <Text size="small">
+                {I18n.t(
+                  'By submitting this report, you agree to share your current conversation to Instructure for improvements.',
+                )}
+              </Text>
+            </Flex.Item>
+            <Flex.Item>
+              <Flex gap="small">
+                <Button
+                  color="primary"
+                  themeOverride={lightBlueButtonTheme}
+                  interaction={buttonInteraction}
+                  onClick={handleSkip}
+                  data-testid="message-feedback-skip"
+                >
+                  {I18n.t('Skip')}
+                </Button>
+                <Button
+                  color="primary"
+                  interaction={submitInteraction}
+                  onClick={handleSubmit}
+                  data-testid="message-feedback-submit"
+                  themeOverride={submitButtonTheme}
+                >
+                  {I18n.t('Submit')}
+                </Button>
+              </Flex>
+            </Flex.Item>
           </Flex>
         </View>
       )}

@@ -82,6 +82,11 @@ development:
   private:
     canvas:
       pendo_app_id: "stub-key-please-see-MRA-plugin"
+      pendo_regional_app_id: "stub-key-please-see-MRA-plugin"
+      pendo_regional_app_env: "io"
+      pendo_mobile_api_key_teacher: "stub-teacher-key-see-MRA-plugin"
+      pendo_mobile_api_key_parent: "stub-parent-key-see-MRA-plugin"
+      pendo_mobile_api_key_student: "stub-student-key-see-MRA-plugin"
       auditors.yml: |
         write_paths:
           - active_record
@@ -92,6 +97,9 @@ development:
         aws_access_key_id: key
         aws_secret_access_key_dec: secret
         # stub_credentials: true # can be used in dev to print creds to stdout
+      kafka_events.yml: |-
+        topics:
+          course_events: course.events
       # bedrock configuration for smart search and discussion summaries
       bedrock.yml: |-
         bedrock_region: us-west-2
