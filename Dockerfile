@@ -62,7 +62,8 @@ RUN mkdir -p /etc/apt/keyrings \
 
 RUN gem install bundler --no-document -v 2.5.10 \
   && find $GEM_HOME ! -user docker | xargs chown docker:docker
-RUN npm install -g npm@9.8.1 && npm cache clean --force
+RUN npm install -g npm@9.8.1 \
+  && rm -rf /root/.npm/_cacache
 
 ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 RUN corepack enable && corepack prepare yarn@1.19.1 --activate
