@@ -51,7 +51,11 @@ import {
   getPeerReviewSubHeaderText,
   getRedirectUrlToFirstPeerReview,
 } from '@canvas/assignments/helpers/PeerReviewHelpers'
-import {shouldRenderSelfAssessment, transformRubricAssessmentData} from '../helpers/RubricHelpers'
+import {
+  shouldRenderAiRubricFeedback,
+  shouldRenderSelfAssessment,
+  transformRubricAssessmentData,
+} from '../helpers/RubricHelpers'
 import {
   friendlyTypeName,
   isSubmitted,
@@ -67,6 +71,7 @@ import PeerReviewPromptModal from '@canvas/assignments/react/PeerReviewPromptMod
 import SimilarityPledge from '@canvas/assignments/react/SimilarityPledge'
 import StudentFooter from './StudentFooter'
 import useStore from './stores/index'
+import {AiRubricFeedbackButton} from './AiRubricFeedback/AiRubricFeedbackButton'
 import {SelfAssessmentButton} from './RubricSelfAssessment/SelfAssessmentButton'
 import {SelfAssessmentTrayClient} from './RubricSelfAssessment/SelfAssessmentTrayClient'
 
@@ -820,6 +825,12 @@ const SubmissionManager = ({
         key: 'submit',
         shouldRender: () => shouldRenderSubmit(),
         render: () => renderSubmitButton(),
+      },
+      {
+        key: 'ai-rubric-feedback',
+        shouldRender: () =>
+          shouldRenderAiRubricFeedback({assignment, submission, allowChangesToSubmission}),
+        render: () => <AiRubricFeedbackButton isEnabled={allowChangesToSubmission} />,
       },
       {
         key: 'submit-self-assessment',

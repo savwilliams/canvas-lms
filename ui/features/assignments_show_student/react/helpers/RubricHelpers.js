@@ -80,6 +80,21 @@ export function transformRubricAssessmentData(rubricAssessment) {
   return assessmentCopy
 }
 
+export function shouldRenderAiRubricFeedback({assignment, submission, allowChangesToSubmission}) {
+  if (!assignment || !submission || !allowChangesToSubmission) {
+    return false
+  }
+
+  return (
+    !assignment.env.peerReviewModeEnabled &&
+    ENV.ai_rubric_feedback_enabled &&
+    assignment.rubric &&
+    allowChangesToSubmission &&
+    !assignment.lockInfo.isLocked &&
+    submission.gradingStatus !== 'excused'
+  )
+}
+
 export function shouldRenderSelfAssessment({assignment, submission, allowChangesToSubmission}) {
   if (!assignment || !submission || !allowChangesToSubmission) {
     return false

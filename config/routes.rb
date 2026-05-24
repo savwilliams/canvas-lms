@@ -326,6 +326,7 @@ CanvasRails::Application.routes.draw do
 
       get :rubric
       get :rubric_data
+      post :ai_rubric_feedback, on: :member
       resource :rubric_association, path: :rubric do
         resources :rubric_assessments, path: :assessments do
           collection do
