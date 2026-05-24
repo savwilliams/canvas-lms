@@ -35,6 +35,18 @@ ai_experiences_context_file_upload:
       state: allowed_on
     development:
       state: allowed_on
+ai_rubric_feedback:
+  state: hidden
+  applies_to: Course
+  shadow: true
+  display_name: AI Rubric Feedback
+  description: Lets students request rubric-aligned draft feedback before submitting (advisory only).
+  touch_context: true
+  environments:
+    ci:
+      state: allowed_on
+    development:
+      state: allowed_on
 ai_experiences_v2_auth:
   state: hidden
   applies_to: Account

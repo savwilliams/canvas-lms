@@ -186,6 +186,7 @@ class AssignmentsController < ApplicationController
              points_based: grading_standard.points_based?,
              scaling_factor: grading_standard.scaling_factor,
              enhanced_rubrics_enabled: @context.feature_enabled?(:enhanced_rubrics),
+             ai_rubric_feedback_enabled: @context.feature_enabled?(:ai_rubric_feedback),
              course_pacing_enabled: @context.enable_course_paces,
              peer_review_allocation_and_grading: @context.feature_enabled?(:peer_review_allocation_and_grading) && @assignment.peer_review_sub_assignment.present?,
            })
@@ -623,6 +624,33 @@ class AssignmentsController < ApplicationController
     if authorized_action(@assignment, @current_user, :read)
       render partial: "shared/assignment_rubric_dialog"
     end
+  end
+
+  # POST /courses/:course_id/assignments/:id/ai_rubric_feedback
+  # Stub endpoint for student draft feedback (MVP slice 1 — no external AI call yet).
+  def ai_rubric_feedback
+    @assignment = @context.assignments.active.find(params[:id])
+    unless @context.feature_enabled?(:ai_rubric_feedback)
+      return render json: { error: "feature disabled" }, status: :forbidden
+    end
+    return render_unauthorized_action unless authorized_action(@assignment, @current_user, :submit)
+    unless @assignment.rubric
+      return render json: { error: "assignment has no rubric" }, status: :unprocessable_entity
+    end
+
+    draft_text = params[:draft_text].to_s.strip
+    if draft_text.blank?
+      return render json: { error: "draft_text required" }, status: :unprocessable_entity
+    end
+
+    render json: {
+      feedback: {
+        weak_areas: [],
+        suggestions: [
+          t("Placeholder feedback: AI service integration is planned for a follow-up slice.")
+        ],
+      },
+    }
   end
 
   # Provides an assignment's rubric to initialize enhanced rubric component
