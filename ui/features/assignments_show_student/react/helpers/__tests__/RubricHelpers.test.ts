@@ -16,7 +16,11 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import {transformRubricData, transformRubricAssessmentData} from '../RubricHelpers'
+import {
+  shouldRenderAiRubricFeedback,
+  transformRubricData,
+  transformRubricAssessmentData,
+} from '../RubricHelpers'
 
 describe('transformRubricData', () => {
   it('returns the original rubric if it is falsey', () => {
@@ -57,6 +61,52 @@ describe('transformRubricData', () => {
 
     expect(criterion.ratings[0].id).toBe('789')
     expect(criterion.ratings[0]._id).toBe(undefined)
+  })
+})
+
+describe('shouldRenderAiRubricFeedback', () => {
+  const baseAssignment = {
+    env: {peerReviewModeEnabled: false},
+    rubric: {id: '1'},
+    lockInfo: {isLocked: false},
+  }
+  const baseSubmission = {gradingStatus: 'graded'}
+
+  beforeEach(() => {
+    // @ts-expect-error test env
+    window.ENV = {...window.ENV, ai_rubric_feedback_enabled: true}
+  })
+
+  it('returns true when flag, rubric, and submission preconditions are met', () => {
+    expect(
+      shouldRenderAiRubricFeedback({
+        assignment: baseAssignment,
+        submission: baseSubmission,
+        allowChangesToSubmission: true,
+      }),
+    ).toBe(true)
+  })
+
+  it('returns false when the feature flag is off', () => {
+    // @ts-expect-error test env
+    window.ENV = {...window.ENV, ai_rubric_feedback_enabled: false}
+    expect(
+      shouldRenderAiRubricFeedback({
+        assignment: baseAssignment,
+        submission: baseSubmission,
+        allowChangesToSubmission: true,
+      }),
+    ).toBe(false)
+  })
+
+  it('returns false when the assignment has no rubric', () => {
+    expect(
+      shouldRenderAiRubricFeedback({
+        assignment: {...baseAssignment, rubric: null},
+        submission: baseSubmission,
+        allowChangesToSubmission: true,
+      }),
+    ).toBeFalsy()
   })
 })
 
