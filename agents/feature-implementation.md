@@ -77,6 +77,7 @@ Document any rename in this table once; graders use this file, not guesswork.
 
 - Human merges when checks and review are satisfied.
 - **Do not** mark project item **Done** until merge commit exists on target branch.
+- For **code-changing** items, run the **QA agent** (`agents/quality-assurance.md`) and record results in `agents/tasks/feature-1/qa-lab-evidence.md` before treating the item as fully complete (Lab 4.1).
 
 ### 6. MCP — mark Complete
 
