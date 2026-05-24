@@ -7,9 +7,8 @@
 | **Project item** | Test (`canvas-lms #1`) — https://github.com/savwilliams/canvas-lms/issues/1 |
 | **Implementation PR** | https://github.com/savwilliams/canvas-lms/pull/2 (merged) |
 | **Merge commit** | https://github.com/savwilliams/canvas-lms/commit/019a9bc1bfc270f3ab8279cae8e3c11f5ea8dfcf |
-| **QA branch** | `feature/lab41-qa-ai-rubric-feedback-tests` |
-| **QA commit** | https://github.com/savwilliams/canvas-lms/commit/5d321b5cfbdd60cfc7cece13e4185fd8b82c298e |
-| **QA PR** | Open from compare: https://github.com/savwilliams/canvas-lms/compare/master...feature/lab41-qa-ai-rubric-feedback-tests?expand=1 |
+| **QA PR** | https://github.com/savwilliams/canvas-lms/pull/3 (merged) |
+| **QA merge commit** | https://github.com/savwilliams/canvas-lms/commit/8851a9684401cfcd8960e028309a19285b5e898b |
 
 ## Tests added or updated
 
