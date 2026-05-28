@@ -627,7 +627,7 @@ class AssignmentsController < ApplicationController
   end
 
   # POST /courses/:course_id/assignments/:id/ai_rubric_feedback
-  # Stub endpoint for student draft feedback (MVP slice 1 — no external AI call yet).
+  # Rubric-aligned advisory feedback for student drafts (MVP slice 2).
   def ai_rubric_feedback
     @assignment = @context.assignments.active.find(params[:id])
     unless @context.feature_enabled?(:ai_rubric_feedback)
@@ -643,14 +643,10 @@ class AssignmentsController < ApplicationController
       return render json: { error: "draft_text required" }, status: :unprocessable_entity
     end
 
-    render json: {
-      feedback: {
-        weak_areas: [],
-        suggestions: [
-          t("Placeholder feedback: AI service integration is planned for a follow-up slice.")
-        ],
-      },
-    }
+    result = AiRubricFeedbackService.call(assignment: @assignment, draft_text:)
+    render json: result
+  rescue AiRubricFeedbackService::DraftTooLong
+    render json: { error: "draft_text too long" }, status: :unprocessable_entity
   end
 
   # Provides an assignment's rubric to initialize enhanced rubric component
