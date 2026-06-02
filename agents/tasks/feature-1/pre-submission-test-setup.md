@@ -65,6 +65,17 @@ Root `tsconfig.json` references `vitest/globals` and `jqueryui` types from `node
 yarn install   # from repo root; can take several minutes
 ```
 
+## Blank assignment page?
+
+The A2 page is a React app. If the content area is **blank**:
+
+1. **Use one URL only** — match `config/domain.yml` `development.domain` (e.g. `localhost` for SSH tunnel, or your EC2 IP if you browse by IP). Do not switch between `localhost` and the public IP in the same browser.
+2. **Rebuild assets** after pulling feature code:
+   ```bash
+   ./script/fix_dev_assignment_page.sh
+   ```
+3. Hard refresh (Ctrl+Shift+R) or a private window after changing domain or assets.
+
 ## Verify AI feedback button (student view)
 
 1. Log in as `student@example.com` or use **Student View** as teacher.
