@@ -29,12 +29,13 @@ docker compose exec -T web yarn test ui/features/assignments_show_student/react/
 
 ---
 
-## Slice 2 — QA (with PR #7)
+## Slice 2 — QA (merged)
 
 | Field | Value |
 |-------|--------|
 | **Issue** | https://github.com/savwilliams/canvas-lms/issues/7 |
-| **Implementation PR** | https://github.com/savwilliams/canvas-lms/pull/7 |
+| **Implementation PR** | https://github.com/savwilliams/canvas-lms/pull/7 (merged) |
+| **Merge commit** | https://github.com/savwilliams/canvas-lms/commit/a839dac5a3874be71e265561e467a47669ee7cc1 |
 | **Branch** | `feature/ai-rubric-feedback-slice-2` |
 
 ### Tests added or updated (slice 2)

@@ -19,12 +19,13 @@
 
 ---
 
-## Slice 2 — Rubric-aware feedback (in review)
+## Slice 2 — Rubric-aware feedback (merged)
 
 | Field | Value |
 |-------|--------|
 | **Issue** | https://github.com/savwilliams/canvas-lms/issues/7 |
-| **PR** | https://github.com/savwilliams/canvas-lms/pull/7 (open) |
+| **PR** | https://github.com/savwilliams/canvas-lms/pull/7 (merged) |
+| **Merge commit** | https://github.com/savwilliams/canvas-lms/commit/a839dac5a3874be71e265561e467a47669ee7cc1 |
 | **Branch** | `feature/ai-rubric-feedback-slice-2` |
 | **Description** | `AiRubricFeedbackService` heuristics per rubric criterion; structured `criteria` / `weak_areas` / `suggestions`; TextArea paste fix |
 
@@ -32,7 +33,7 @@
 
 | Project item | Before | After start | After PR | After merge |
 |--------------|--------|-------------|----------|-------------|
-| [Slice 2: Rubric-aware pre-submission feedback](https://github.com/savwilliams/canvas-lms/issues/7) | Todo | In progress | In review | _pending merge_ |
+| [Slice 2: Rubric-aware pre-submission feedback](https://github.com/savwilliams/canvas-lms/issues/7) | Todo | In progress | In review | Done |
 
 **MCP used?** No — project item and PR linked manually (2026-06-02).
 
