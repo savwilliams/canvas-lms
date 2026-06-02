@@ -100,6 +100,9 @@ assignment_description = <<~HTML
   </ul>
 HTML
 
+course.enable_feature!(:assignments_2_student)
+course.enable_feature!(:ai_rubric_feedback)
+
 rubric.update!(data: frankenstein_rubric_data, points_possible: 100)
 assignment.update!(description: assignment_description)
 
