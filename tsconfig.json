@@ -34,7 +34,7 @@
         "schema": "./schema.graphql"
       }
     ],
-    "types": ["vitest/globals", "jqueryui"]
+    "types": []
   },
   "include": ["ui/**/*.ts", "ui/**/*.tsx", "ui/**/*.d.ts"],
   "exclude": ["node_modules"]

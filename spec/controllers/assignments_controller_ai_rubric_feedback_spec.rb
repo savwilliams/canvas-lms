@@ -14,7 +14,17 @@ describe AssignmentsController do
       title: "AI feedback assignment",
       submission_types: "online_text_entry"
     )
-    rubric = @course.rubrics.create! { |r| r.user = @teacher }
+    rubric = @course.rubrics.create! do |r|
+      r.user = @teacher
+      r.title = "Test rubric"
+      r.data = [{
+        description: "Word count (minimum 500)",
+        points: 10,
+        id: "word_count",
+        ratings: [{ description: "Full", points: 10, id: "wc_ex", criterion_id: "word_count" }],
+      }]
+      r.points_possible = 10
+    end
     rubric_association_params = ActiveSupport::HashWithIndifferentAccess.new(
       hide_score_total: "0",
       purpose: "grading",
@@ -43,17 +53,29 @@ describe AssignmentsController do
       expect(json_parse(response.body)).to eq({ "error" => "feature disabled" })
     end
 
-    it "returns stub feedback when the feature flag is enabled" do
+    it "returns rubric-aligned feedback when the feature flag is enabled" do
       @course.enable_feature!(:ai_rubric_feedback)
       post :ai_rubric_feedback, params: {
         course_id: @course.id,
         id: @assignment.id,
-        draft_text: "draft body"
+        draft_text: "Short draft without thesis or quotes."
       }
       assert_status(200)
       body = json_parse(response.body)
       expect(body["feedback"]["suggestions"]).to be_present
-      expect(body["feedback"]["weak_areas"]).to eq([])
+      expect(body["feedback"]["criteria"]).to be_present
+      expect(body["feedback"]["weak_areas"]).to be_present
+    end
+
+    it "returns unprocessable_entity when draft_text is too long" do
+      @course.enable_feature!(:ai_rubric_feedback)
+      post :ai_rubric_feedback, params: {
+        course_id: @course.id,
+        id: @assignment.id,
+        draft_text: "word " * 60_000
+      }
+      assert_status(422)
+      expect(json_parse(response.body)).to eq({ "error" => "draft_text too long" })
     end
 
     it "returns unprocessable_entity when draft_text is blank" do

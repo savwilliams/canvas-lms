@@ -1,39 +1,62 @@
 # Lab 4.1 — QA evidence (Feature 1)
 
-## Work item
+**Project:** [@pre-submission feedback](https://github.com/users/savwilliams/projects/1)
+
+---
+
+## Slice 1 — QA (merged)
 
 | Field | Value |
 |-------|--------|
 | **Project item** | Test (`canvas-lms #1`) — https://github.com/savwilliams/canvas-lms/issues/1 |
 | **Implementation PR** | https://github.com/savwilliams/canvas-lms/pull/2 (merged) |
-| **Merge commit** | https://github.com/savwilliams/canvas-lms/commit/019a9bc1bfc270f3ab8279cae8e3c11f5ea8dfcf |
 | **QA PR** | https://github.com/savwilliams/canvas-lms/pull/3 (merged) |
 | **QA merge commit** | https://github.com/savwilliams/canvas-lms/commit/8851a9684401cfcd8960e028309a19285b5e898b |
 
-## Tests added or updated
+### Tests (slice 1)
 
 | Path | What it covers |
 |------|----------------|
-| `spec/controllers/assignments_controller_ai_rubric_feedback_spec.rb` | `POST ai_rubric_feedback`: flag off → 403; flag on → 200 stub JSON; blank `draft_text` → 422 |
-| `ui/features/assignments_show_student/react/helpers/__tests__/RubricHelpers.test.ts` | `shouldRenderAiRubricFeedback`: flag on/off, no rubric |
+| `spec/controllers/assignments_controller_ai_rubric_feedback_spec.rb` | Flag off → 403; flag on → 200; blank `draft_text` → 422 |
+| `ui/features/assignments_show_student/react/helpers/__tests__/RubricHelpers.test.ts` | `shouldRenderAiRubricFeedback` gating |
 
-## Commands and outcomes
+### Commands (slice 1) — **PASS**
 
-Run on EC2 inside Docker (`docker compose up -d postgres redis web`):
+```bash
+docker compose exec -T web bundle exec rspec spec/controllers/assignments_controller_ai_rubric_feedback_spec.rb
+docker compose exec -T web yarn test ui/features/assignments_show_student/react/helpers/__tests__/RubricHelpers.test.ts
+```
+
+---
+
+## Slice 2 — QA (with PR #7)
+
+| Field | Value |
+|-------|--------|
+| **Issue** | https://github.com/savwilliams/canvas-lms/issues/7 |
+| **Implementation PR** | https://github.com/savwilliams/canvas-lms/pull/7 |
+| **Branch** | `feature/ai-rubric-feedback-slice-2` |
+
+### Tests added or updated (slice 2)
+
+| Path | What it covers |
+|------|----------------|
+| `app/services/ai_rubric_feedback_service.rb` | Per-criterion heuristics (word count, thesis, quotes, paragraphs, analysis, MLA) |
+| `spec/services/ai_rubric_feedback_service_spec.rb` | Short vs long draft; draft too long |
+| `spec/controllers/assignments_controller_ai_rubric_feedback_spec.rb` | Rubric-aligned JSON; draft too long → 422 |
+| `AiRubricFeedbackButton.tsx` | TextArea `onChange` fix (InstUI event-only API); criteria list UI |
+
+### Commands and outcomes (slice 2)
 
 | Command | Outcome |
 |---------|---------|
-| `docker compose exec -T web bundle exec rspec spec/controllers/assignments_controller_ai_rubric_feedback_spec.rb` | **PASS** — 3 examples, 0 failures |
-| `docker compose exec -T web yarn test ui/features/assignments_show_student/react/helpers/__tests__/RubricHelpers.test.ts` | **PASS** — 13 tests, 0 failures |
+| `docker compose exec -T web bundle exec rspec spec/services/ai_rubric_feedback_service_spec.rb spec/controllers/assignments_controller_ai_rubric_feedback_spec.rb` | **PASS** — 7 examples, 0 failures |
+| Manual: student → Essay 1 → **Get AI Feedback** → paste draft → **Request feedback** | **PASS** — rubric feedback displayed (2026-06-02) |
 
-## Exception (no-test cases)
+### Exception (slice 2)
 
-None for this item. Implementation changed **application behavior** (controller + UI gating); automated tests were required and added.
+None. Behavior-changing code; automated + manual tests recorded.
 
-## QA agent spec
+### Plan trace (slice 2)
 
-Procedure and commands documented in `agents/quality-assurance.md`. Handoff: implementation agent delivers PR → QA agent adds/updates tests → green runs recorded here → item may remain **Done** on board after merge.
-
-## Plan trace
-
-QA validates **Functional Requirements §2** for slice 1 from `agents/tasks/feature-1/feature-1.md`: feature-flag gating, API acceptance of draft text, and UI visibility rules—without asserting external AI content. Matches Lab 3.2 implementation scope (stub only).
+QA validates **FR §2.2–2.4**: structured feedback with `weak_areas`, `suggestions`, and per-criterion `criteria` from rubric heuristics; advisory only; flag still required.
