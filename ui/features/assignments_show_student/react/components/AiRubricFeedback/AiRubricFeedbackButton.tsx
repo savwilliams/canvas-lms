@@ -65,7 +65,6 @@ export const AiRubricFeedbackButton = ({isEnabled}: AiRubricFeedbackButtonProps)
         method: 'POST',
         path: `/courses/${ENV.COURSE_ID}/assignments/${ENV.ASSIGNMENT_ID}/ai_rubric_feedback`,
         body: {draft_text: draftText},
-        headers: {'Content-Type': 'application/json'},
       })
       const feedback = json?.feedback
       setWeakAreas(feedback?.weak_areas ?? [])
@@ -108,7 +107,7 @@ export const AiRubricFeedbackButton = ({isEnabled}: AiRubricFeedbackButtonProps)
           <TextArea
             label={I18n.t('Draft text')}
             value={draftText}
-            onChange={(_e, value) => setDraftText(value)}
+            onChange={e => setDraftText(e.target.value)}
             height="10rem"
           />
           {isLoading && (
